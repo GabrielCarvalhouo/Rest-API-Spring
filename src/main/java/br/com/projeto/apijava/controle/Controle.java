@@ -3,6 +3,8 @@ package br.com.projeto.apijava.controle;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +57,41 @@ public class Controle {
     @GetMapping("/api/ordenarNomes")
     public List<Pessoa> ordenarNomes(){
         return acao.findByOrderByNome();
+    }
+
+    @GetMapping("/api/ordenarNomes2")
+    public List<Pessoa> ordenarNomes2(){
+        return acao.findByNomeOrderByIdadeDesc("Gabriel");
+    }
+
+    @GetMapping("/api/nomeContem")
+    public List<Pessoa> nomeContem(){
+        return acao.findByNomeContaining("a");
+    }
+
+    @GetMapping("/api/iniciaCom")
+    public List<Pessoa> iniciaCom(){
+        return acao.findByNomeStartsWith("j");
+    }
+
+    @GetMapping("/api/terminaCom")
+    public List<Pessoa> terminaCom(){
+        return acao.findByNomeEndsWith("l");
+    }
+
+    @GetMapping("/api/somaIdades")
+    public int somaIdades(){
+        return acao.somaIdades();
+    }
+
+    @GetMapping("/api/idadeMaiorIgual")
+    public List<Pessoa> idadeMaiorIgual(){
+        return acao.idadeMaiorIgual(20);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<?> status(){
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("")
